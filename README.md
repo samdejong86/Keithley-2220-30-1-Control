@@ -1,12 +1,12 @@
 # Keithley 2220-30-1 DC Power Supply Control
 
-##Description
+## Description
 
 A script for controlling a Keithley 2220-30-1 DC power supply via SCPI commands send via USB.
 
 Information on the SCPI interface for the Keithleu 2200 series devices can be found in [this document](https://www.tek.com/dc-power-supply/series-2220-2230-2231-multiple-output-manual-0)
 
-##Requirements
+## Requirements
 
 Install the python-usbtmc package:
 
@@ -24,7 +24,7 @@ which yeilds this output:
 
       Bus 001 Device 067: ID VVVV:PPPP Keithley Instruments 
 
-#Usage
+## Usage
 
 
     usage: KeithleyControl.py [-h] [-v1 VOLTAGE1] [-v2 VOLTAGE2] [-c1 CURRENT1]
