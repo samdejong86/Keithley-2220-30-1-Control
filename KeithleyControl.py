@@ -33,13 +33,12 @@ def Status():
     cSetting=[]
     
     inst.write("SYSTEM:REMOTE")
-    inst.write("INST:SEL CH1")
-    vSetting.append(inst.ask("VOLT?"))
-    cSetting.append(inst.ask("CURR?"))
+
+    for i in range(0,2):
+        inst.write("INST:SEL CH"+str(i+1))
+        vSetting.append(inst.ask("VOLT?"))   #voltage setting
+        cSetting.append(inst.ask("CURR?"))   #current setting
     
-    inst.write("INST:SEL CH2")
-    vSetting.append(inst.ask("VOLT?"))
-    cSetting.append(inst.ask("CURR?"))
     inst.write("SYSTem:LOCal")
     
     voltStatus =    inst.ask("MEAS:VOLT:DC? ALL")     #voltage on all channels
