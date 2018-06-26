@@ -28,8 +28,8 @@ which yeilds this output:
 
 
     usage: KeithleyControl.py [-h] [-v1 VOLTAGE1] [-v2 VOLTAGE2] [-c1 CURRENT1]
-                          [-c2 CURRENT2] [-s] [-o {off,on,keep}] [-m MACRO]
-                          [-l LINE] [-u VENDOR_ID PRODUCT_ID]
+                          [-c2 CURRENT2] [-s] [-o {off,on,keep}] [-f MACRO]
+                          [-l LINE] [-u VENDOR_ID PRODUCT_ID] [-m FILE]
 
     Program a Keithley 2220-30-1 DC power supply
 
@@ -51,3 +51,6 @@ which yeilds this output:
       -l LINE, --line LINE  A single command to send to the device
       -u VENDOR_ID PRODUCT_ID, --usb VENDOR_ID PRODUCT_ID
                             USB vendor and product IDs
+      -m FILE, --monitor FILE
+                            Measure voltage, current, and power on all channels at
+                            1Hz, writing to FILE

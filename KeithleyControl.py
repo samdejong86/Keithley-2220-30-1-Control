@@ -2,6 +2,7 @@
 
 import usbtmc
 import argparse
+import time
 from time import sleep
 
 #command line arguments
@@ -12,9 +13,10 @@ parser.add_argument('-c1','--current1',help='Current setting for channel 1 in mA
 parser.add_argument('-c2','--current2',help='Current setting for channel 2 in mA',default="none", required=False)
 parser.add_argument('-s','--status',help='Display voltage and current settings',action='store_true', required=False)
 parser.add_argument('-o','--output',help='Enable/disable output',default="keep", required=False, choices=['off', 'on', 'keep'])
-parser.add_argument('-m', '--macro',help='A SCPI macro file', default="none", required=False)
+parser.add_argument('-f', '--macro',help='A SCPI macro file', default="none", required=False)
 parser.add_argument('-l', '--line', help="A single command to send to the device", default="", required=False)
 parser.add_argument('-u', '--usb', help="USB vendor and product IDs", nargs=2, default=['05e6','2220'], required=False, metavar=("VENDOR_ID", "PRODUCT_ID"))
+parser.add_argument('-m', '--monitor', help="Measure voltage, current, and power on all channels at 1Hz, writing to FILE", default="none", required=False, metavar="FILE")
 
 args = parser.parse_args()
 
@@ -52,7 +54,38 @@ def Status():
         print("Output is off")
 
     print("")
+
+#monitor device
+if not args.monitor == "none":
+    print("Monitoring voltage, current, and power, saving to "+args.monitor)
+    print("Press 'ctrl-C' to end")
     
+    f=open(args.monitor, 'w')
+    f.write("Time\tVoltage CH1 (V)\tCurrent CH1 (A)\tPower CH1 (W)\tVoltage CH2 (V)\tCurrent CH2 (A)\tPower CH2 (W)\tOutput enabled\n")
+    print("Voltage CH1 (V)\tCurrent CH1 (A)\tPower CH1 (W)\tVoltage CH2 (V)\tCurrent CH2 (A)\tPower CH2 (W)\tOutput enabled")
+    
+    try:
+        while True:
+            voltStatus =    inst.ask("MEAS:VOLT:DC? ALL")     #voltage on all channels
+            currentStatus = inst.ask("MEAS:CURRENT:DC? ALL")  #current on all channels
+            powerStatus = inst.ask("MEAS:POW? ALL")           #power on all channels
+            outputStatus = inst.ask("OUTPUT?")                #is output enabled
+
+            
+            v = voltStatus.split(",")
+            c = currentStatus.split(",")
+            p = powerStatus.split(",")
+
+            
+            print(v[0]+"\t"+c[0]+"\t"+p[0]+"\t"+v[1]+"\t"+c[1]+"\t"+p[1]+"\t"+outputStatus)
+            f.write(str(round(time.time(),2))+"\t"+v[0]+"\t"+c[0]+"\t"+p[0]+"\t"+v[1]+"\t"+c[1]+"\t"+p[1]+"\t"+outputStatus+"\n")
+
+    #catch ctrl+C
+    except KeyboardInterrupt:
+        f.close()
+        inst.close()
+        exit()
+        
         
 
 if args.status:
