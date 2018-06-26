@@ -46,7 +46,7 @@ which yeilds this output:
       -s, --status          Display voltage and current settings
       -o {off,on,keep}, --output {off,on,keep}
                             Enable/disable output
-      -m MACRO, --macro MACRO
+      -f MACRO, --macro MACRO
                             A SCPI macro file
       -l LINE, --line LINE  A single command to send to the device
       -u VENDOR_ID PRODUCT_ID, --usb VENDOR_ID PRODUCT_ID
