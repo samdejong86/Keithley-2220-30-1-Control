@@ -28,10 +28,25 @@ print(inst.ask("*IDN?"))
 
 #status check
 def Status():
+
+    vSetting = []
+    cSetting=[]
+    
+    inst.write("SYSTEM:REMOTE")
+    inst.write("INST:SEL CH1")
+    vSetting.append(inst.ask("VOLT?"))
+    cSetting.append(inst.ask("CURR?"))
+    
+    inst.write("INST:SEL CH2")
+    vSetting.append(inst.ask("VOLT?"))
+    cSetting.append(inst.ask("CURR?"))
+    inst.write("SYSTem:LOCal")
+    
     voltStatus =    inst.ask("MEAS:VOLT:DC? ALL")     #voltage on all channels
     currentStatus = inst.ask("MEAS:CURRENT:DC? ALL")  #current on all channels
     powerStatus = inst.ask("MEAS:POW? ALL")           #power on all channels
     outputStatus = inst.ask("OUTPUT?")                #is output enabled
+
     
     inst.close()
     
@@ -43,8 +58,8 @@ def Status():
     print("Device status:")
     for i in range(0,2):
         print("Channel "+str(i+1)+":")
-        print("    Voltage = "+v[i]+"V")
-        print("    Current = "+c[i]+"A")
+        print("    Voltage = "+v[i]+"V (Set to "+vSetting[i]+"V)")
+        print("    Current = "+c[i]+"A (Set to "+cSetting[i]+"A)")
         print("    Power   = "+p[i]+"W")
         print("")
 
