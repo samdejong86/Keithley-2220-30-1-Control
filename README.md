@@ -22,7 +22,11 @@ where *VVVV* and *PPPP* are the vendor and product id, and can be found by runni
 
 which yeilds this output:
 
-      Bus 001 Device 067: ID VVVV:PPPP Keithley Instruments 
+      Bus 001 Device 067: ID VVVV:PPPP Keithley Instruments
+
+Once the file has been edited, restart udev with:
+
+    sudo udevadm trigger
 
 ## Usage
 
