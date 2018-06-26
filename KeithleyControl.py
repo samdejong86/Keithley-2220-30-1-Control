@@ -26,20 +26,22 @@ inst = usbtmc.Instrument(int(args.usb[0], 16), int(args.usb[1], 16))
 #querty device's identity
 print(inst.ask("*IDN?"))
 
+
+#start remote control
+inst.write("SYSTEM:REMOTE")
+
 #status check
 def Status():
 
     vSetting = []
     cSetting=[]
     
-    inst.write("SYSTEM:REMOTE")
 
     for i in range(0,2):
         inst.write("INST:SEL CH"+str(i+1))
         vSetting.append(inst.ask("VOLT?"))   #voltage setting
         cSetting.append(inst.ask("CURR?"))   #current setting
     
-    inst.write("SYSTem:LOCal")
     
     voltStatus =    inst.ask("MEAS:VOLT:DC? ALL")     #voltage on all channels
     currentStatus = inst.ask("MEAS:CURRENT:DC? ALL")  #current on all channels
@@ -104,11 +106,10 @@ if not args.monitor == "none":
 
 if args.status:
     Status()
+    inst.write("SYSTem:LOCal")
     exit()
 
 
-#start remote control
-inst.write("SYSTEM:REMOTE")
 
 #check if a string is a number below 30V (device max voltage)
 def checkV(s):
