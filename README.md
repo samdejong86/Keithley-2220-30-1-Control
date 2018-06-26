@@ -2,7 +2,7 @@
 
 ## Description
 
-A script for controlling a Keithley 2220-30-1 DC power supply via SCPI commands send via USB.
+A script for controlling a Keithley 2220-30-1 DC power supply via SCPI commands sent via USB.
 
 Information on the SCPI interface for the Keithley 2200 series devices can be found in [this document](https://www.tek.com/dc-power-supply/series-2220-2230-2231-multiple-output-manual-0)
 

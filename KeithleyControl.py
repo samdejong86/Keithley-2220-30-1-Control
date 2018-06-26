@@ -20,15 +20,16 @@ parser.add_argument('-m', '--monitor', help="Measure voltage, current, and power
 
 args = parser.parse_args()
 
-#open connection to device                       
-inst = usbtmc.Instrument(int(args.usb[0], 16), int(args.usb[1], 16))
+#open connection to device
+try:
+    inst = usbtmc.Instrument(int(args.usb[0], 16), int(args.usb[1], 16))
+except usbtmc.usbtmc.UsbtmcException:
+    print("Unable to connect to device.")
+    exit()
+    
 
 #querty device's identity
 print(inst.ask("*IDN?"))
-
-
-#start remote control
-inst.write("SYSTEM:REMOTE")
 
 #status check
 def Status():
@@ -102,7 +103,9 @@ if not args.monitor == "none":
         inst.close()
         exit()
         
-        
+
+#start remote control
+inst.write("SYSTEM:REMOTE")        
 
 if args.status:
     Status()
