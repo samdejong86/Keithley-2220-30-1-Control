@@ -2,7 +2,11 @@
 
 ## Description
 
-A script for controlling a Keithley 2220-30-1 DC power supply via SCPI commands sent via USB.
+Script for controlling a Keithley 2220-30-1 DC power supply via SCPI commands sent via USB:
+
+KeithleyControl.py is a command line script for setting the voltage and current, checking the status of the device, and monitoring the output values.
+
+KeithleyGUI.py is a GUI based on matplotlib which allows the user to change the voltage and current.
 
 Information on the SCPI interface for the Keithley 2200 series devices can be found in [this document](https://www.tek.com/dc-power-supply/series-2220-2230-2231-multiple-output-manual-0)
 
@@ -30,6 +34,7 @@ Once the file has been edited, restart udev with:
 
 ## Usage
 
+### KeithleyControl.py
 
     usage: KeithleyControl.py [-h] [-v1 VOLTAGE1] [-v2 VOLTAGE2] [-c1 CURRENT1]
                           [-c2 CURRENT2] [-s] [-o {off,on,keep}] [-f MACRO]
@@ -58,3 +63,14 @@ Once the file has been edited, restart udev with:
       -m FILE, --monitor FILE
                             Measure voltage, current, and power on all channels at
                             1Hz, writing to FILE
+
+### KeithleyGUI.py
+
+![alt text](img/GUI.png "GUI")
+
+Clicking the "Measure" Button will refresh the measured voltage and current displayed in the red boxes.
+
+Typing a number into the "Voltage" or "Current" field in the lower half of the window will change the voltage setting on the appropriate channel.
+
+
+Clicking the "Output enabled / Output disabled" button at the bottom will toggle the output of the device.
