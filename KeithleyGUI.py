@@ -1,12 +1,10 @@
-
-
+#!/usr/bin/env python
 
 import usbtmc
 import argparse
 import time
 from time import sleep
 import numpy as np
-
 
 import matplotlib.pyplot as plt
 from matplotlib.widgets import TextBox
