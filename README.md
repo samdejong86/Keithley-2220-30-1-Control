@@ -70,7 +70,7 @@ Once the file has been edited, restart udev with:
 
 Clicking the "Measure" Button will refresh the measured voltage and current displayed in the red boxes.
 
-Typing a number into the "Voltage" or "Current" field in the lower half of the window will change the voltage setting on the appropriate channel.
+Typing a number into the "Voltage" or "Current" field in the lower half of the window will change the setting on the appropriate channel.
 
 
 Clicking the "Output enabled / Output disabled" button at the bottom will toggle the output of the device.
